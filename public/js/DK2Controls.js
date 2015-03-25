@@ -54,8 +54,29 @@ THREE.DK2Controls = function(camera) {
     var message = evt.data;
     try {
       that.sensorData = JSON.parse(message);
+      console.log("SockO: "+message);
     } catch (err) {
-      console.log(message);
+      console.log("err "+message);
+    }
+  };
+
+  ws.onclose = function () {
+    console.log("### Closed ####");
+  };
+
+//**************************************************************
+  var wsG = new WebSocket("ws://localhost:8889/ws");
+  wsG.onopen = function () {
+    console.log("### Connected ####");
+  };
+
+  wsG.onmessage = function (evt) {
+    var message = evt.data;
+    try {
+      
+      console.log("SockG: "+message);
+    } catch (err) {
+      console.log("err "+message);
     }
   };
 
@@ -63,6 +84,7 @@ THREE.DK2Controls = function(camera) {
     console.log("### Closed ####");
   };
   
+
   
   this.onKeyDown = function (event) {
     switch (event.keyCode) {
